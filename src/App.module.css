@@ -1,41 +1,51 @@
 .errorMessage {
-    color: red;
-    font-size: 12px;
-    letter-spacing: 0.05rem;
-    padding-left: 0.25rem;
+  color: red;
+  font-size: calc(10px + 2vmin);
+  letter-spacing: 0.05rem;
+  padding-left: 0.25rem;
 }
 
 .colMedia {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .App {
-    width: 800px;
-    margin: 0 auto;
-    padding: 30vh 0;
-    text-overflow: ellipsis;
+  width: 800px;
+  margin: 0 auto;
+  text-overflow: ellipsis;
 }
 
 .lyricWrapper {
-    padding-top: 0px;
+  padding-top: 0px;
 }
 
 .truncate {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  margin: 80px auto;
 }
 
 @media only screen and (max-width: 767px) {
-    .lyricWrapper {
-        padding-top: 50px;
-    }
-    .App {
-        width: 100%;
-        padding: 10vh 0;
-    }
+  .lyricWrapper {
+    padding-top: 50px;
+  }
+  .App {
+    width: 100%;
+  }
+  .hero {
+    width: unset;
+    margin: 40px auto;
+  }
 }
