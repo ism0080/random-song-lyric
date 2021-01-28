@@ -1,0 +1,17 @@
+.lyricWrapper {
+  padding-top: 0px;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@media only screen and (max-width: 767px) {
+  .lyricWrapper {
+    padding-top: 50px;
+  }
+}
