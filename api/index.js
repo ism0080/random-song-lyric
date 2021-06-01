@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
       info: await retrieveLyrics(req.query.artist)
     })
   } catch (err) {
+    console.log(err)
     res.send({
       status: 500,
       message: err
