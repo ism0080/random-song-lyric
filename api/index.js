@@ -1,5 +1,5 @@
 const Genius = require('genius-lyrics')
-const Client = new Genius.Client()
+const Client = new Genius.Client(process.env.GENIUS_KEY)
 
 const retrieveLyrics = async (artist) => {
   const songs = await Client.songs.search(artist)
