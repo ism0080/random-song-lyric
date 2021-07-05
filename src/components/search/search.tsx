@@ -29,7 +29,7 @@ export const Search = ({ onSubmit, loading }: SearchProps) => {
           />
           {errors.artist && <span className={`${styles.errorMessage} mandatory`}>{errors.artist.message}</span>}
         </div>
-        <button type='submit' className='btn btn-outline-primary'>
+        <button type='submit' className='btn btn-outline-primary' disabled={loading}>
           {loading ? <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true' /> : 'Get Lyric'}
         </button>
       </form>
