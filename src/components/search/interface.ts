@@ -1,4 +1,4 @@
 export interface SearchProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: SearchData) => void
   loading: boolean
 }

@@ -2,34 +2,36 @@ import React from 'react'
 import { Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 
-import styles from './search.module.css'
 import { SearchProps } from './interface'
+import styles from './search.module.css'
 
 export const Search = ({ onSubmit, loading }: SearchProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm<SearchData>()
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete='off'>
         <div className='form-group'>
-          <label htmlFor='inputForArtist'>Artist</label>
-          <input
-            id='inputForArtist'
-            type='text'
-            className='form-control'
-            aria-describedby='Enter artist'
-            placeholder="Enter Artist's Name"
-            {...register('artist', {
-              required: {
-                value: true,
-                message: 'Please enter an Artist'
-              }
-            })}
-          />
+          <label htmlFor='inputForArtist'>
+            Artist
+            <input
+              id='inputForArtist'
+              type='text'
+              className='form-control'
+              aria-describedby='Enter artist'
+              placeholder="Enter Artist's Name"
+              {...register('artist', {
+                required: {
+                  value: true,
+                  message: 'Please enter an Artist'
+                }
+              })}
+            />
+          </label>
           {errors.artist && <span className={`${styles.errorMessage} mandatory`}>{errors.artist.message}</span>}
         </div>
         <button type='submit' className='btn btn-outline-primary' disabled={loading}>

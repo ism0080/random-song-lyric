@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 
-import Hero from '../../images/branding.svg'
 import { AlertBanner, Lyrics, Search } from '../../components'
-
+import Hero from '../../images/branding.svg'
 import styles from './home.module.css'
 
 export const Home = () => {
-  const [lyric, setLyric] = useState('')
-  const [title, setTitle] = useState('')
-  const [image, setImage] = useState('')
+  const [lyric, setLyric] = useState<GeniusLyricsData | null>(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SearchData) => {
     setLoading(true)
     const params = new URLSearchParams({ artist: data.artist })
+
     fetch(`/api?${params}`, {
       method: 'GET',
       headers: {
@@ -23,7 +21,7 @@ export const Home = () => {
       }
     })
       .then((res) => res.json())
-      .then(({ info, status }) => {
+      .then(({ info, status }: GeniusResponse) => {
         if (status === 500) {
           setLoading(false)
           setError(true)
@@ -32,9 +30,7 @@ export const Home = () => {
           }, 2000)
         } else {
           setLoading(false)
-          setLyric(info.lyrics)
-          setTitle(info.title)
-          setImage(info.image)
+          setLyric({ lyrics: info.lyrics, title: info.title, image: info.image })
         }
       })
   }
@@ -50,7 +46,7 @@ export const Home = () => {
             <Col md={6} sm={12} xs={12}>
               <Search loading={loading} onSubmit={onSubmit} />
             </Col>
-            {lyric.length > 0 && <Lyrics title={title} image={image} lyric={lyric} />}
+            {lyric && <Lyrics title={lyric.title} image={lyric.image} lyrics={lyric.lyrics} />}
           </Row>
         </Container>
       </div>
