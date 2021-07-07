@@ -6,7 +6,11 @@ import styles from './search.module.css'
 import { SearchProps } from './interface'
 
 export const Search = ({ onSubmit, loading }: SearchProps) => {
-  const { register, handleSubmit, errors } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
 
   return (
     <div>
@@ -15,12 +19,11 @@ export const Search = ({ onSubmit, loading }: SearchProps) => {
           <label htmlFor='inputForArtist'>Artist</label>
           <input
             id='inputForArtist'
-            name='artist'
             type='text'
             className='form-control'
             aria-describedby='Enter artist'
             placeholder="Enter Artist's Name"
-            ref={register({
+            {...register('artist', {
               required: {
                 value: true,
                 message: 'Please enter an Artist'
