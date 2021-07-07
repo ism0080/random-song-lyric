@@ -8,10 +8,8 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 const devMode = process.env.NODE_ENV !== 'production'
 
-const rootPath = (...args) => args.reduce((fullPath, pathComponent) => path.join(fullPath, pathComponent), process.cwd())
-
 module.exports = {
-  entry: [rootPath('src/app.tsx')],
+  entry: [path.join(__dirname, 'src/app.tsx')],
 
   devtool: 'source-map',
 
@@ -83,7 +81,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: rootPath('dist'),
+    contentBase: path.join(__dirname, 'dist'),
     publicPath: '/',
     open: false,
     hot: true,
@@ -95,8 +93,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       chunks: ['main'],
-      template: rootPath('public/index.html'),
-      favicon: rootPath('public/favicon.ico'),
+      template: path.join(__dirname, 'public/index.html'),
+      favicon: path.join(__dirname, 'public/favicon.ico'),
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -108,12 +106,12 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: './public/favicon.ico', to: './' },
-        { from: './public/manifest.json', to: './' },
-        { from: './public/apple-touch-icon.png', to: './' },
-        { from: './public/favicon-32x32.png', to: './' },
-        { from: './public/favicon-16x16.png', to: './' },
-        { from: './public/browserconfig.xml', to: './' }
+        { from: path.join(__dirname, 'public/favicon.ico'), to: './' },
+        { from: path.join(__dirname, 'public/manifest.json'), to: './' },
+        { from: path.join(__dirname, 'public/apple-touch-icon.png'), to: './' },
+        { from: path.join(__dirname, 'public/favicon-32x32.png'), to: './' },
+        { from: path.join(__dirname, 'public/favicon-16x16.png'), to: './' },
+        { from: path.join(__dirname, 'public/browserconfig.xml'), to: './' }
       ]
     }),
     new CleanWebpackPlugin(),
