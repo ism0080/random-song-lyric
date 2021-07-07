@@ -8,8 +8,10 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 const devMode = process.env.NODE_ENV !== 'production'
 
+const rootPath = (...args) => args.reduce((fullPath, pathComponent) => path.join(fullPath, pathComponent), process.cwd())
+
 module.exports = {
-  entry: ['./src/app.tsx'],
+  entry: [rootPath('src/app.tsx')],
 
   devtool: 'source-map',
 
@@ -81,7 +83,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: rootPath('dist'),
     publicPath: '/',
     open: false,
     hot: true,
@@ -93,8 +95,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       chunks: ['main'],
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
+      template: rootPath('public/index.html'),
+      favicon: rootPath('public/favicon.ico'),
       minify: {
         collapseWhitespace: true,
         removeComments: true,
