@@ -3,7 +3,7 @@ import { Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 
 import { SearchProps } from './interface'
-import styles from './search.module.css'
+import styles from './search.less'
 
 export const Search = ({ onSubmit, loading }: SearchProps) => {
   const {
@@ -11,6 +11,10 @@ export const Search = ({ onSubmit, loading }: SearchProps) => {
     handleSubmit,
     formState: { errors }
   } = useForm<SearchData>()
+
+  // const onFormSubmit = (data: SearchData) => {
+  //   onSubmit(data.artist)
+  // }
 
   return (
     <div>

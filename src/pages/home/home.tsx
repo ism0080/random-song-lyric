@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import { AlertBanner, Lyrics, Search } from '../../components'
 import Hero from '../../images/branding.svg'
-import styles from './home.module.css'
+import styles from './home.less'
 
 export const Home = () => {
   const [lyric, setLyric] = useState<GeniusLyricsData | null>(null)
@@ -37,7 +37,7 @@ export const Home = () => {
 
   return (
     <div>
-      {error && <AlertBanner setError={setError} errorText='Something went wrong' />}
+      {error && <AlertBanner errorText='Something went wrong' />}
       <img className={styles.hero} src={Hero} alt='lyrc' />
       <div className={styles.App}>
         <Container fluid>
