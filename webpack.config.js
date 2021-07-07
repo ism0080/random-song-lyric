@@ -9,7 +9,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-  entry: [path.join(__dirname, 'src/app.tsx')],
+  entry: [path.join(__dirname, 'src/App.tsx')],
 
   devtool: 'source-map',
 
