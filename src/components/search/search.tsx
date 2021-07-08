@@ -12,10 +12,6 @@ export const Search = ({ onSubmit, loading }: SearchProps) => {
     formState: { errors }
   } = useForm<SearchData>()
 
-  // const onFormSubmit = (data: SearchData) => {
-  //   onSubmit(data.artist)
-  // }
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete='off'>
@@ -35,12 +31,12 @@ export const Search = ({ onSubmit, loading }: SearchProps) => {
                 }
               })}
             />
+            {errors.artist && (
+              <span role='alert' className={`${styles.errorMessage} mandatory`}>
+                {errors.artist.message}
+              </span>
+            )}
           </label>
-          {errors.artist && (
-            <span role='alert' className={`${styles.errorMessage} mandatory`}>
-              {errors.artist.message}
-            </span>
-          )}
         </div>
         <button type='submit' className='btn btn-outline-primary' disabled={loading}>
           {loading ? <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true' /> : 'Get Lyric'}
