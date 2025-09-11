@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import { AlertBanner, Lyrics, Search } from '../../components'
 import Hero from '../../images/branding.svg'
-import styles from './home.less'
+import styles from './home.module.less'
 
 export const Home = () => {
   const [lyric, setLyric] = useState<GeniusLyricsData | null>(null)

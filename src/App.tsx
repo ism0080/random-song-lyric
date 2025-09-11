@@ -7,4 +7,4 @@ import { Home } from './pages'
 
 export const App = () => <Home />
 
-render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('root'))

@@ -3,7 +3,7 @@ import { Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 
 import { SearchProps } from './interface'
-import styles from './search.less'
+import styles from './search.module.less'
 
 export const Search = ({ onSubmit, loading }: SearchProps) => {
   const {

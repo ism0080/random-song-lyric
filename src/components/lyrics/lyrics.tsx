@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Media } from 'react-bootstrap'
 
-import styles from './lyrics.less'
+import styles from './lyrics.module.less'
 
 export const Lyrics = ({ image, title, lyrics }: GeniusLyricsData) => (
   <Col md={6} sm={12} xs={12} className={styles.lyricWrapper}>
