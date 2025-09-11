@@ -1,4 +1,7 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { Hono } from 'hono'
+
+const app = new Hono()
+
 import Genius from 'genius-lyrics'
 
 const Client = new Genius.Client(process.env.GENIUS_KEY!)
@@ -24,19 +27,21 @@ const retrieveLyrics = async (artist: string) => {
   return { lyrics: lines[lineIndex], title, image }
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+app.get('/api', async (c) => {
   try {
-    const artist = req.query.artist as string
+    const artist = c.req.query('artist')
 
     if (!artist) {
-      return res.status(400).json({ status: 400, error: 'Missing artist parameter' })
+      return c.json({ error: 'Missing artist parameter' }, 400)
     }
 
     const info = await retrieveLyrics(artist)
 
-    return res.status(200).json({ status: 200, info })
+    return c.json({ info }, 200)
   } catch (err: any) {
     console.error('API error:', err?.message || err)
-    return res.status(500).json({ status: 500, error: err?.message || err })
+    return c.json({ error: err?.message || err }, 500)
   }
-}
+})
+
+export default app
