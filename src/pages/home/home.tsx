@@ -20,8 +20,10 @@ export const Home = () => {
         'Content-Type': 'application/json'
       }
     })
-      .then((res) => res.json())
-      .then(({ info, status }: GeniusResponse) => {
+      .then((res) => ({ res: res.json(), status: res.status }))
+      .then(async ({ res, status }) => {
+        const data: GeniusResponse = await res
+        const { info } = data
         if (status === 500) {
           setLoading(false)
           setError(true)
@@ -32,6 +34,13 @@ export const Home = () => {
           setLoading(false)
           setLyric({ lyrics: info.lyrics, title: info.title, image: info.image })
         }
+      })
+      .catch(() => {
+        setLoading(false)
+        setError(true)
+        setTimeout(() => {
+          setError(false)
+        }, 2000)
       })
   }
 

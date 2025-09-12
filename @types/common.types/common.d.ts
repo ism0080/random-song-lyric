@@ -5,7 +5,6 @@ declare type GeniusLyricsData = {
 }
 
 declare type GeniusResponse = {
-  status: number
   info: GeniusLyricsData
 }
 
