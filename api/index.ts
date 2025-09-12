@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { parse, TextNode } from 'node-html-parser'
 import { z } from 'zod/v4'
 
 const SongsResponseSchema = z.object({
@@ -10,10 +9,15 @@ const SongsResponseSchema = z.object({
         type: z.string(),
         result: z.object({
           id: z.number(),
+          api_path: z.string(),
           title: z.string(),
           full_title: z.string(),
           url: z.string(),
-          header_image_url: z.string()
+          header_image_url: z.string(),
+          primary_artist_names: z.string(),
+          primary_artist: z.object({
+            name: z.string()
+          })
         })
       })
     )
@@ -26,26 +30,20 @@ const BASE_URL = 'https://api.genius.com'
 const defaultUserAgent =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
 
-const getLyrics = async (url: string) => {
-  const body = await fetch(url)
-  const bodyText = await body.text()
-  const document = parse(bodyText)
-  const lyricsRoot = document.getElementById('lyrics-root')
+const getLyrics = async (artist: string, title: string) => {
+  const url = `https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`
+  const body = await fetch(url, {
+    headers: {
+      'User-Agent': defaultUserAgent
+    }
+  })
+  const bodyText = await body.json()
 
-  const lyrics = lyricsRoot
-    ?.querySelectorAll("[data-lyrics-container='true']")
-    .map((x) => {
-      x.querySelectorAll('br').forEach((y) => {
-        y.replaceWith(new TextNode('\n'))
-      })
-      return x.text
-    })
-    .join('\n')
-    .trim()
+  const lyrics = z.object({ lyrics: z.string().min(1, { error: 'Required' }) }).safeParse(bodyText)
 
-  if (!lyrics) throw new Error('No lyrics found')
+  if (!lyrics.success) throw new Error('No lyrics found')
 
-  return lyrics
+  return lyrics.data.lyrics
 }
 
 const retrieveLyrics = async (artist: string) => {
@@ -65,7 +63,7 @@ const retrieveLyrics = async (artist: string) => {
   const songIndex = Math.floor(Math.random() * songs.length)
   const song = songs[songIndex]
 
-  const lyrics = await getLyrics(song.result.url)
+  const lyrics = await getLyrics(song.result.primary_artist.name, song.result.title)
   const title = song.result.full_title
   const { header_image_url: image } = song.result
 
