@@ -1,4 +1,4 @@
-import { fn } from './fn'
+import { fn } from './fn.js'
 import { z } from 'zod/v4'
 
 const defaultUserAgent =

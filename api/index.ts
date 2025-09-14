@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
-import { GeniusAPI } from './util/genius'
-import { LyricsAPI } from './util/lyrics'
-import { fn } from './util/fn'
+import { GeniusAPI } from './util/genius.js'
+import { LyricsAPI } from './util/lyrics.js'
+import { fn } from './util/fn.js'
 import { z } from 'zod/v4'
 
 const app = new Hono()

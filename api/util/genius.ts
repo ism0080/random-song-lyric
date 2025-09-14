@@ -1,5 +1,5 @@
 import { z } from 'zod/v4'
-import { fn } from './fn'
+import { fn } from './fn.js'
 
 const BASE_URL = 'https://api.genius.com'
 const defaultUserAgent =
