@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { event } from 'onedollarstats'
 
 import { AlertBanner, Lyrics, Search } from '../../components'
 import Hero from '../../images/branding.svg'
@@ -11,6 +12,7 @@ export const Home = () => {
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data: SearchData) => {
+    event('Search Lyrics', { artist: data.artist })
     setLoading(true)
     const params = new URLSearchParams({ artist: data.artist })
 
